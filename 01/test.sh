@@ -4,7 +4,7 @@ test(){
     data=$1
     code=$2
     answer=$3
-    out_ans=$(./test "$1")
+    out_ans=$(./my_prog "$1")
     out_code=$?
     if ((code != 0))
     then
@@ -26,8 +26,8 @@ test(){
     fi
 }
 
-test "223+2a  " 1 
-test " 223    + 2a    " 1
+test "223+2x  " 1 
+test " 223    + 234xaad    " 1
 test "2+2+2" 0 6
 test "  2 +2+   2" 0 6
 test "      2 + 2   +  2  " 0 6
@@ -42,9 +42,3 @@ test "2-3*4+-5/2" 0 -12
 test "2 + 3 / 0" 1
 test "2 +" 1
 test "+ 2 +" 1
-# test('./test "-    4- -4"', 0, [ '0' ])
-# test('./test', 1, [ 'error' ])
-# test('./test 2 + 3', 1, [ 'error' ])
-# test('./test "2/0"', 1, [ 'error' ])
-# test('./test "2/"', 1, [ 'error' ])
-# test('./test "3 + a"', 1, [ 'error' ])

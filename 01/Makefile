@@ -6,7 +6,7 @@ test: my_prog
 	bash test.sh
 
 run: my_prog
-	./test "${Args}"
+	./my_prog "${Args}"
 
 my_prog: first.o
 	$(CC) -o my_prog first.o 
