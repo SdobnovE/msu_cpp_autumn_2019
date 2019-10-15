@@ -98,7 +98,7 @@ int main(int argc, char* argv[])
         beg++;
 
         while (beg[0] == ' ')
-        beg++;
+            beg++;
 
         if (!signs.empty() && (signs.top() == '/' || signs.top() == '*'))
             action = 1;
