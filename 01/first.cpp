@@ -79,8 +79,7 @@ int main(int argc, char* argv[])
         }
         
         beg += s.length();
-        if (beg[0] == '\0')
-            break;
+        
 
         while (beg[0] != '\0' && beg[0] == ' ')
             beg++;
