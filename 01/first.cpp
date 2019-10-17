@@ -2,53 +2,43 @@
 #include<string.h>
 #include<iostream>
 #include<stack>
-#define ERR 1
+
 
 using namespace std;
+const int ERR = 1;
 
-
-
-int main(int argc, char* argv[])
+void delete_spaces(char* str, char* argv)
 {
-    
-    if (argc != 2) 
-        return ERR;
-    if (strlen(argv[1]) == 0)
-        return ERR;
-
-    char *str = new char[strlen(argv[1])];
-    int len = strlen(argv[1]);
+    int len = strlen(argv);
     int t = 0;
     for (int i = 0; i < len; i++)
     {
-        if (argv[1][i] == ' ')
+        if (argv[i] == ' ')
             continue;
         else 
         {
-            str[t] = argv[1][i];
+            str[t] = argv[i];
             t++;   
         }
     }
     str[t] = '\0';
     
+}
 
-    char *beg = str;
-    
+int get_stacks(char* beg, stack<int>& numbers, stack<char>& signs)
+{
     int t_i;
-
-    stack<int> numbers;
-    stack<char> signs;
     bool action = 0;
-    while (beg[0] != '\0' && beg[0] == ' ')
-        beg++;
+    
     
     while (beg[0] != '\0')
     {
-        
         //printf ("%s\n", beg);
-        
         if (sscanf (beg, "%d", &t_i) != 1) 
+        {
+            
             return ERR;
+        }
         numbers.push (t_i);
         
         
@@ -81,18 +71,17 @@ int main(int argc, char* argv[])
         beg += s.length();
         
 
-        while (beg[0] != '\0' && beg[0] == ' ')
-            beg++;
+        
         
         if (beg[0] == '\0')
             break;
         
-
-        //printf ("%s\n", beg);
         
         if (beg[0] != '+' && beg[0] != '-' 
             && beg[0] != '/' && beg[0] != '*')//Check sign
+        {
             return ERR;
+        }
         
         signs.push (beg[0]);
         beg++;
@@ -104,8 +93,12 @@ int main(int argc, char* argv[])
             action = 1;
         
     }
+    return 0;
 
-    
+}
+
+int get_result(int& res, stack<int>& numbers, stack<char>&signs)
+{
     stack<int> numbers_temp;
     stack<char> signs_temp;
     int num_len = 0;
@@ -123,7 +116,9 @@ int main(int argc, char* argv[])
         signs.pop();
     }
     if (num_len - sig_len != 1)
+    {
         return ERR;
+    }
     
     int result = numbers_temp.top();
     numbers_temp.pop();
@@ -143,6 +138,41 @@ int main(int argc, char* argv[])
         }
         numbers_temp.pop();
         signs_temp.pop();
+    }
+    res = result;
+    return 0;
+
+}
+
+int main(int argc, char* argv[])
+{
+    
+    if (argc != 2) 
+        return ERR;
+        
+    if (strlen(argv[1]) == 0)
+        return ERR;
+
+    char *str = new char[strlen(argv[1])];
+    
+    delete_spaces (str, argv[1]);
+
+    char *beg = str;
+
+
+    stack<int> numbers;
+    stack<char> signs;
+    
+    if (get_stacks(beg, numbers, signs) != 0)
+    {
+        delete[] str;
+        return ERR;
+    }
+    int result;
+    if (get_result(result, numbers, signs) != 0)
+    {
+        delete[] str;
+        return ERR;
     }
     cout << result << endl;
     
