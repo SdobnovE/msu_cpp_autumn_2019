@@ -2,10 +2,10 @@
 #include<string.h>
 #include<iostream>
 #include<stack>
-
+#include"first.h"
 
 using namespace std;
-const int ERR = 1;
+
 
 void delete_spaces(char* str, char* argv)
 {
@@ -143,17 +143,13 @@ int get_result(int& res, stack<int>& numbers, stack<char>&signs)
     return 0;
 
 }
-
-int main(int argc, char* argv[])
+int calculator (int& value, char* argv[])
 {
-    
-    if (argc != 2) 
-        return ERR;
-        
-    if (strlen(argv[1]) == 0)
+    int len_argv = strlen (argv[1]);
+    if (len_argv == 0)
         return ERR;
 
-    char *str = new char[strlen(argv[1])];
+    char *str = new char[len_argv];
     
     delete_spaces (str, argv[1]);
 
@@ -174,11 +170,24 @@ int main(int argc, char* argv[])
         delete[] str;
         return ERR;
     }
-    cout << result << endl;
     
 
+    value = result;
     
     delete[] str;
+    return 0;
+}
+
+int main(int argc, char* argv[])
+{
+    
+    if (argc != 2) 
+        return ERR;
+    int val = 0;
+
+    if (calculator (val, argv) != 0)
+        return ERR;
+    cout <<  val << endl;    
 
     return 0;
 }
