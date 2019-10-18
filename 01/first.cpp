@@ -144,7 +144,7 @@ int get_result(int& res, stack<int>& numbers, stack<char>&signs)
 
 }
 
-int calculator (int& value, string str)
+int calculator (int& value, string& str)
 {
     if (str.size() == 0)
         return ERR;
