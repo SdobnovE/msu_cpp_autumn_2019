@@ -7,21 +7,22 @@
 using namespace std;
 
 
-void delete_spaces(char* str, char* argv)
+void delete_spaces(string& str)
 {
-    int len = strlen(argv);
+
+    string argv_temp = string(str);
     int t = 0;
-    for (int i = 0; i < len; i++)
+    for (auto i: argv_temp)
     {
-        if (argv[i] == ' ')
+        if (i == ' ')
             continue;
         else 
         {
-            str[t] = argv[i];
+            str[t] = i;
             t++;   
         }
     }
-    str[t] = '\0';
+    str.resize(t);
     
 }
 
@@ -33,7 +34,7 @@ int get_stacks(char* beg, stack<int>& numbers, stack<char>& signs)
     
     while (beg[0] != '\0')
     {
-        //printf ("%s\n", beg);
+
         if (sscanf (beg, "%d", &t_i) != 1) 
         {
             
@@ -143,38 +144,34 @@ int get_result(int& res, stack<int>& numbers, stack<char>&signs)
     return 0;
 
 }
-int calculator (int& value, char* argv[])
+
+int calculator (int& value, string str)
 {
-    int len_argv = strlen (argv[1]);
-    if (len_argv == 0)
+    if (str.size() == 0)
         return ERR;
+    delete_spaces (str);
 
-    char *str = new char[len_argv];
-    
-    delete_spaces (str, argv[1]);
-
-    char *beg = str;
-
+    char *beg = &str[0];
 
     stack<int> numbers;
     stack<char> signs;
     
-    if (get_stacks(beg, numbers, signs) != 0)
+    if (get_stacks (beg, numbers, signs) != 0)
     {
-        delete[] str;
+        
         return ERR;
     }
     int result;
-    if (get_result(result, numbers, signs) != 0)
+    if (get_result (result, numbers, signs) != 0)
     {
-        delete[] str;
+        
         return ERR;
     }
     
 
     value = result;
     
-    delete[] str;
+    
     return 0;
 }
 
@@ -183,11 +180,13 @@ int main(int argc, char* argv[])
     
     if (argc != 2) 
         return ERR;
-    int val = 0;
 
-    if (calculator (val, argv) != 0)
+    int val = 0;
+    string str = argv[1];
+
+    if (calculator (val, str) != 0)
         return ERR;
-    cout <<  val << endl;    
+    cout << val << endl;    
 
     return 0;
 }
