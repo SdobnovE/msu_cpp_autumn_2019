@@ -25,7 +25,7 @@ void delete_spaces(string& str)
     
 }
 
-int get_stacks(char* beg, stack<int>& numbers, stack<char>& signs)
+bool get_stacks(char* beg, stack<int>& numbers, stack<char>& signs)
 {
     int t_i;
     bool action = 0;
@@ -97,7 +97,7 @@ int get_stacks(char* beg, stack<int>& numbers, stack<char>& signs)
 
 }
 
-int get_result(int& res, stack<int>& numbers, stack<char>&signs)
+bool get_result(int& res, stack<int>& numbers, stack<char>& signs)
 {
     stack<int> numbers_temp;
     stack<char> signs_temp;
@@ -144,7 +144,7 @@ int get_result(int& res, stack<int>& numbers, stack<char>&signs)
 
 }
 
-int calculator (int& value, string& str)
+bool calculator (int& value, string& str)
 {
     if (str.size() == 0)
         return ERR;
