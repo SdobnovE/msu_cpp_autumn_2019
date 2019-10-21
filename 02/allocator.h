@@ -1,5 +1,8 @@
 #include<iostream>
 
+#ifndef LinearAllocator_H
+#define LinearAllocator_H
+
 class LinearAllocator
 {
     private:
@@ -15,3 +18,5 @@ class LinearAllocator
         void reset();
         size_t retMaxSize();
 };
+
+#endif
