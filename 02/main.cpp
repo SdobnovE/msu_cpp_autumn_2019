@@ -9,9 +9,8 @@ int main (int argc, char* argv[])
     if (argc <= 1 || argc > 2)
         return 1;
     
-    if ((n = atoi(argv[1])) == 0)
+    if ((n = atoi(argv[1])) <= 0)
         return 1;
-    
 
     try 
     {
@@ -30,7 +29,7 @@ int main (int argc, char* argv[])
             if (tmp == nullptr)
                 return 4;    
         }
-        
+
         a.reset();
 
         for (int i = 0; i < 5; i++)
