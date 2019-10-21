@@ -9,7 +9,7 @@ int main (int argc, char* argv[])
     if (argc == 1)
         return -1;
     
-    if ((n = atoi(argv[1])) <= 0)
+    if ((n = atoi(argv[1])) == 0)
         return -1;
     
 
