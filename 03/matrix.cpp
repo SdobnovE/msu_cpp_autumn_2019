@@ -12,17 +12,25 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
     for (auto i = 0; i < _numRows; i++)
         _rows[i].setRow(_numColumns);
     
-    _rows[0].print();
 
+}
+const Row& Matrix::operator[](size_t numRow) const
+{
+    
+    
+    if (numRow >= 0 && numRow < _numRows)
+        return _rows[numRow];
+    else
+        throw std::out_of_range("");
 }
 
 Row& Matrix::operator[](size_t numRow)
 {
     
-    if (numRow >=0 && numRow <= _numRows)
+    if (numRow >= 0 && numRow < _numRows)
         return _rows[numRow];
     else
-        throw std::bad_alloc();
+        throw std::out_of_range("");
 }
 
 Matrix::~Matrix()
@@ -59,7 +67,7 @@ void Matrix::operator*=(size_t l)
     
 }
 
-void Matrix::print()
+void Matrix::print() const
 {
     for (auto i = 0; i < _numRows; i++)
     {

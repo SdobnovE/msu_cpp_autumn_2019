@@ -2,10 +2,9 @@
 
 #ifndef ROW_H
 #define ROW_H
-//#include"matrix.h"
+
 class Row
 {
-    //friend class Matrix;
 
     private:
         size_t _len;
@@ -16,7 +15,8 @@ class Row
         Row();
         ~Row();
         size_t& operator[](size_t numCol);
-        void print();
+        size_t operator[](size_t numCol) const;
+        void print() const;
         void setRow(size_t len);
 
 };

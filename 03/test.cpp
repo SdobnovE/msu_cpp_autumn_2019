@@ -4,7 +4,7 @@
 
 #define check_equal(x, y)  do { if ((x) != y) std::cout << "line " << __LINE__ << ": expected " << y << " got " << (x) << '\n'; } while(0)
 #define check(cond) do { if (!(cond)) std::cout << "line " << __LINE__ << ": " << #cond << '\n'; } while(0)
-#define check_throw(expr, err) do { try { expr; } catch (const err&) { break ; } catch (...) { } std::cout << "line " << __LINE__ << '\n'; } while(0)
+#define check_throw(expr, err) do { try { expr; } catch (const err&) { break; } catch (...) {  } std::cout << "line " << __LINE__ << " No Expected exception\n";} while(0)
 
 int main()
 {
@@ -26,14 +26,15 @@ int main()
     check_equal(m1[1][1], 5);
     check_equal(m1[1][2], 6);
 
-
+    
+    
     check_throw(m1[0][3], std::out_of_range);
-    check_throw(m1[2][0], std::out_of_range);
+    check_throw(m1[2][1], std::out_of_range);
 
     m1 *= 2;
 
     const Matrix& m2 = m1;
-
+    
     check_equal(m2[0][0], 1 * 2);
     check_equal(m2[0][1], 2 * 2);
     check_equal(m2[0][2], 3 * 2);

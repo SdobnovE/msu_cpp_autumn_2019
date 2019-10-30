@@ -17,8 +17,9 @@ class Matrix
         bool operator==(const Matrix& other) const;
         bool operator!=(const Matrix& other) const;
         Row& operator[](size_t numRow);
+        const Row& operator[](size_t numRow) const;
         void operator*=(size_t l);
-        void print();
+        void print() const;
 
 };
 

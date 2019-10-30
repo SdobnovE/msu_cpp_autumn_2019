@@ -18,6 +18,14 @@ Row::~Row()
         delete[] _row;
 }
 
+size_t Row::operator[](size_t numCol) const
+{
+    if (numCol >= 0 && numCol < _len)
+        return _row[numCol];
+    else
+        throw std::out_of_range("");
+}
+
 size_t& Row::operator[](size_t numCol)
 {
     if (numCol >= 0 && numCol < _len)
@@ -26,7 +34,7 @@ size_t& Row::operator[](size_t numCol)
         throw std::out_of_range("");
 }
 
-void Row::print()
+void Row::print() const
 {
     for (auto i = 0; i < _len; i++)
         std::cout << _row[i] << std::endl;
