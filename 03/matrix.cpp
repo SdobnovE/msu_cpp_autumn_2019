@@ -16,7 +16,6 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
 
 const Row& Matrix::operator[](size_t numRow) const
 {
-    
     if (numRow < _numRows)
         return _rows[numRow];
     else
@@ -34,7 +33,6 @@ Row& Matrix::operator[](size_t numRow)
 
 Matrix::~Matrix()
 {
-    
     if (_rows != nullptr)
         delete[] _rows;
 }

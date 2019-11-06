@@ -1,6 +1,5 @@
 #include<iostream>
 #include"row.h"
-//#include"matrix.h"
 
 Row::Row(size_t len): _len(len)
 {
