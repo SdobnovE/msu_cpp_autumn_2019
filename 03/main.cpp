@@ -8,7 +8,7 @@ int main (int argc, char* argv[])
 {
     Matrix a(12,12);
     a.print();
-    a[2][2] = 1234;
+    a[3][2] = 1234;
     cout << endl;
     a.print();
     return 0;

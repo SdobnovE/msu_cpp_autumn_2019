@@ -9,16 +9,15 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
     if (_rows == nullptr)
         throw std::bad_alloc();
 
-    for (auto i = 0; i < _numRows; i++)
+    for (size_t i = 0; i < _numRows; i++)
         _rows[i].setRow(_numColumns);
     
-
 }
+
 const Row& Matrix::operator[](size_t numRow) const
 {
     
-    
-    if (numRow >= 0 && numRow < _numRows)
+    if (numRow < _numRows)
         return _rows[numRow];
     else
         throw std::out_of_range("");
@@ -27,7 +26,7 @@ const Row& Matrix::operator[](size_t numRow) const
 Row& Matrix::operator[](size_t numRow)
 {
     
-    if (numRow >= 0 && numRow < _numRows)
+    if (numRow < _numRows)
         return _rows[numRow];
     else
         throw std::out_of_range("");
@@ -46,8 +45,8 @@ bool Matrix::operator==(const Matrix& other) const
         && this->_numRows != other._numRows)
         return false;
     
-    for (auto i = 0; i < _numRows; i++)
-        for (auto j = 0; j < _numColumns; j++)
+    for (size_t i = 0; i < _numRows; i++)
+        for (size_t j = 0; j < _numColumns; j++)
             if (_rows[i][j] != other._rows[i][j])
                 return false;
 
@@ -59,19 +58,20 @@ bool Matrix::operator!=(const Matrix& other) const
     return !(*this == other);
 }
 
-void Matrix::operator*=(size_t l)
+Matrix& Matrix::operator*=(uint64_t l)
 {
-    for (auto i = 0; i < _numRows; i++)
-        for (auto j = 0; j < _numColumns; j++)
+    for (size_t i = 0; i < _numRows; i++)
+        for (size_t j = 0; j < _numColumns; j++)
             _rows[i][j] *= l;
+    return *this;
     
 }
 
 void Matrix::print() const
 {
-    for (auto i = 0; i < _numRows; i++)
+    for (size_t i = 0; i < _numRows; i++)
     {
-        for (auto j = 0; j < _numColumns; j++)
+        for (size_t j = 0; j < _numColumns; j++)
         {
             std::cout << _rows[i][j] << " ";
         }
