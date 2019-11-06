@@ -6,10 +6,7 @@ using namespace std;
 
 int main (int argc, char* argv[])
 {
-    Matrix a(12,12);
-    a.print();
-    a[3][2] = 1234;
-    cout << endl;
-    a.print();
+    Matrix a(0, 0);
+    
     return 0;
 }

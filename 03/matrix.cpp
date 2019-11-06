@@ -1,16 +1,28 @@
 #include<iostream>
 #include"row.h"
 #include"matrix.h"
+using std::cout;
+using std::endl;
 
 Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns)
 {
-    _rows = new Row[_numRows];
     
-    if (_rows == nullptr)
-        throw std::bad_alloc();
+    if (_numRows == 0)
+    {
+        _rows = nullptr;
+        return;
+    }
 
-    for (size_t i = 0; i < _numRows; i++)
-        _rows[i].setRow(_numColumns);
+    auto temp = new Row[_numRows];
+    
+    if (temp == nullptr)
+        throw std::bad_alloc();
+    
+
+    _rows = new (temp) Row(_numColumns);
+    
+    for (size_t i = 1; i < _numRows; i++)
+        new (temp + i) Row(_numColumns);
     
 }
 

@@ -17,7 +17,6 @@ class Row
         uint64_t& operator[](size_t numCol);
         uint64_t operator[](size_t numCol) const;
         void print() const;
-        void setRow(size_t len);
 
 };
 #endif

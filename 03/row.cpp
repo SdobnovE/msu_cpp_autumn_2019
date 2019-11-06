@@ -40,19 +40,6 @@ void Row::print() const
         std::cout << _row[i] << std::endl;
 }
 
-void Row::setRow(size_t len)
-{
-    _len = len;
-    if (_row != nullptr)
-        delete[] _row;
-    
-    _row = new size_t[len];
-    
-    if (_row == nullptr)
-        throw std::bad_alloc();
 
-    for (size_t i = 0; i < _len; i++)
-        _row[i] = 0;
-}
 
 Row::Row(): _len(0), _row(nullptr){}
