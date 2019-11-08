@@ -13,7 +13,7 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
         return;
     }
 
-    auto temp = static_cast<Row*>(operator new(sizeof(Row) * _numRows * 100));
+    auto temp = static_cast<Row*>(operator new(sizeof(Row) * _numRows));
     
     if (temp == nullptr)
         throw std::bad_alloc();
