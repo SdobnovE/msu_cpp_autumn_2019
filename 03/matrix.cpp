@@ -13,7 +13,7 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
         return;
     }
 
-    auto temp = new Row[_numRows];
+    auto temp = static_cast<Row*>(operator new(sizeof(Row) * _numRows * 100));
     
     if (temp == nullptr)
         throw std::bad_alloc();
@@ -45,8 +45,11 @@ Row& Matrix::operator[](size_t numRow)
 
 Matrix::~Matrix()
 {
+    for (size_t i = 0; i < _numRows; i++)
+        _rows[i].~Row();
+        
     if (_rows != nullptr)
-        delete[] _rows;
+        operator delete (_rows);
 }
 
 bool Matrix::operator==(const Matrix& other) const
