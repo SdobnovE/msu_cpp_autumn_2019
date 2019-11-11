@@ -19,11 +19,12 @@ Matrix::Matrix(size_t rows, size_t columns): _numRows(rows), _numColumns(columns
         throw std::bad_alloc();
     
 
-    _rows = new (temp) Row(_numColumns);
     
-    for (size_t i = 1; i < _numRows; i++)
+    
+    for (size_t i = 0; i < _numRows; i++)
         new (temp + i) Row(_numColumns);
-    
+        
+    _rows = temp;
 }
 
 const Row& Matrix::operator[](size_t numRow) const
