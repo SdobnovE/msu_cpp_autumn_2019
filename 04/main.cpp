@@ -1,17 +1,15 @@
 #include <iostream>
 #include <stdio.h>
-
+#include "bigint.h"
 #include <new>
  
 using std::cout;
- 
+
  
 int main(){
-   int *a = malloc(sizeof(int) * 10);             //нашли блок памяти в куче и направили туда указатель а
-   int* ptr = new (a) int[10];     //использован placement new      (если в круглых скобках указать &a, то происходит сбой)
- 
-   for (int i=0; i<10; i++) ptr[i] = i;             //посредством указателя заполнили массив а
-   for (int i=0; i<10; i++) cout << a[i] << '\t';   //вывели массив а на экран
-   delete []a;      //то, что было выделено new[] чистим delete
- 
+   BigInt a = 9223372036854775807, b = 86;
+   //99 - 100
+   //100 - 100
+   cout << a  + b + a + b - a - a - b - b + a + a + a + a - a - a - a - a<< std::endl;
+   
 }

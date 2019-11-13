@@ -1,29 +1,24 @@
 CC=g++
+Keys=-g
+all: my_prog test
 
-all: my_prog speed
+test: bigint.o test.o
+	$(CC) $(Keys) -o test bigint.o  test.o
 
-
-
-speed: speed.o allocator.o
-	$(CC) -o speed allocator.o speed.o
-
-my_prog: main.o allocator.o
-	$(CC) -o my_prog allocator.o  main.o
+my_prog: main.o bigint.o
+	$(CC) $(Keys) -o my_prog bigint.o  main.o
 
 main.o: main.cpp
-	$(CC) -c main.cpp
+	$(CC) $(Keys) -c main.cpp
 	
-allocator.o: allocator.cpp
-	$(CC) -c allocator.cpp
+bigint.o: bigint.cpp
+	$(CC) $(Keys) -c bigint.cpp
 
-speed.o: speed.cpp
-	$(CC) -c speed.cpp
+test.o: test.cpp
+	$(CC) $(Keys) -c test.cpp
 
-runSpeedTest: speed
-	./speed 600000000
+runTest: test
+	./test
 
-runTestScript: my_prog
-	bash test.sh
-	
 clean:
 	rm -rf *.o my_prog
