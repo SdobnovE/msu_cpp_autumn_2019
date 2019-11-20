@@ -20,4 +20,4 @@ test.o: test.cpp format.h
 
 
 clean:
-	rm -rf *.o my_prog *.gch
+	rm -rf *.o my_prog test

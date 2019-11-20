@@ -27,6 +27,7 @@ int main()
     // cout << "sd" << endl;
     // A AA(1232442);
     cout << format("asd{0}, asdwe {2}",123,2,"HAHAH",4) << endl;
+    cout << format("{1}+{1} = {0}", 2, "one") << endl;
     //cout << isdigit('a') << endl;
     return 0;
 }
