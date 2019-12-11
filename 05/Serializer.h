@@ -25,7 +25,7 @@ public:
 
 
     template <typename T>
-    Error operator() (T one) const
+    Error operator() (const T& one) const
     {  
         if (std::is_same<T, std::uint64_t>::value)
         {
@@ -50,7 +50,7 @@ public:
 
 
     template <typename T, typename... Args>
-    Error operator() (T one, Args... args) const
+    Error operator() (const T& one, const Args&... args) const
     {  
         if (std::is_same<T, std::uint64_t>::value)
         {
