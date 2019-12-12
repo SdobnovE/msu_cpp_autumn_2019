@@ -1,6 +1,6 @@
 #include<iostream>
 #include<vector>
-#include"task.h"
+#include"vector.h"
 using namespace std;
 
 class My
@@ -11,6 +11,7 @@ class My
     public:
         My(size_t size): _size(size), _ar(new double[size])
         {
+            
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = 0;
 
@@ -18,6 +19,7 @@ class My
         
         My():_size(10), _ar(new double[10])
         {
+            
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = 0;
         }
@@ -42,21 +44,29 @@ class My
 
         }
 
+       
         My(const My& obj)
         {
+            //cout << "AAA\n";
             _size = obj._size;
             _ar = new double[_size];
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = obj._ar[i];
         }
         
-        My& ret()
+        My ret()
         {
             return *this;
         }
         friend ostream& operator<<(ostream& out, My& obj);
+        friend ostream& operator<<(ostream& out, My&& obj);
 };
 ostream& operator<<(ostream& out, My& obj)
+{
+    out << "HAHA " << obj._ar[0];
+    return out;
+}
+ostream& operator<<(ostream& out, My&& obj)
 {
     out << "HAHA " << obj._ar[0];
     return out;
@@ -70,8 +80,8 @@ int main()
     a2 = a3;
     Vector<My> a(2);
     
-    
-    a.push_back(a2);
+    cout<< a2.ret() << endl;
+    a.push_back(a2.ret());
     
     a.push_back(a2);
 
@@ -79,8 +89,23 @@ int main()
     a.push_back(a2);
     
     a.push_back(a2);
+    a.push_back(a2.ret());
     a.push_back(a2);
+    a.pop_back();
+    a.pop_back();
+    a.pop_back();
     a.push_back(a2);
+    
+    a.push_back(a2);
+    a.push_back(a2.ret());
+    a.push_back(a2);
+    a.clear();
+    a.push_back(a2);
+    
+    a.push_back(a2);
+    a.push_back(a2.ret());
+    a.push_back(a2);
+    cout << a.size() << endl;
     
     a.resize(1020);
     cout << a.capacity() << endl;

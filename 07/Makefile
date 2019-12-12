@@ -8,11 +8,11 @@ my_prog: main.o
 test: test.o
 	$(CC) $(Keys) -o test test.o
 
-test.o: test.cpp task.h
+test.o: test.cpp vector.h
 	$(CC) $(Keys) -c test.cpp
 
 
-main.o: main.cpp task.h
+main.o: main.cpp vector.h
 	$(CC) $(Keys) -c main.cpp
 
 clear:

@@ -1,5 +1,5 @@
 CC=g++
-Keys=-g
+Keys=-g -std=c++17
 all: test
 
 test: test.o

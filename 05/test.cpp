@@ -91,7 +91,7 @@ int main()
 
     y = { 0, true, 0 };
 
-    auto s6 = std::stringstream("100_false_500");
+    auto s6 = std::stringstream("100 false 500");
     Deserializer d6(s6);
     checkTrue(d6.load(y) == Error::NoError);
 
@@ -104,7 +104,7 @@ int main()
     
     Data1 y1 = { 0, true, false };
 
-    auto s7 = std::stringstream("100_false_true");
+    auto s7 = std::stringstream("100 false true");
     Deserializer d7(s7);
     checkTrue(d7.load(y1) == Error::NoError);
 
@@ -114,7 +114,7 @@ int main()
     checkEqual(y1.b, false);
     checkEqual(y1.c, true);
 
-    auto s8 = std::stringstream("10000_true_false");
+    auto s8 = std::stringstream("10000 true false");
     Deserializer d8(s8);
     checkTrue(d8.load(y1) == Error::NoError);
 
