@@ -42,11 +42,6 @@ class Allocator
             new (p) T(std::forward<T>(obj));
         }
 
-        void construct (T* p, const T& obj)
-        {
-            
-            new (p) T(obj);
-        }
 
         void destroy (T* p) 
         {
@@ -223,7 +218,10 @@ class Vector
             if (capacity_ == size_)
             {    
                 auto new_memory = alloc_.allocate(size_ * 2);
-                memcpy(new_memory, objects_, sizeof(T) * size_);
+                
+                for (size_t i = 0; i < size_; i++)
+                    alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));  
+
                 alloc_.deallocate(objects_, size_);
                 
                 objects_ = new_memory;
@@ -232,7 +230,7 @@ class Vector
 
             }
 
-            alloc_.construct(objects_ + size_, obj);
+            alloc_.construct(objects_ + size_, static_cast<T>(obj));
             
             size_++;
         }
@@ -243,7 +241,10 @@ class Vector
             if (capacity_ == size_)
             {    
                 auto new_memory = alloc_.allocate(size_ * 2);
-                memcpy(new_memory, objects_, sizeof(T) * size_);
+                
+                for (size_t i = 0; i < size_; i++)
+                    alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+
                 alloc_.deallocate(objects_, size_);
                 
                 objects_ = new_memory;
@@ -290,7 +291,10 @@ class Vector
                 if (new_size >= capacity_)
                 {
                     auto new_memory = alloc_.allocate(new_size * 2);
-                    memcpy(new_memory, objects_, sizeof(T) * size_);
+                    
+                    for (size_t i = 0; i < size_; i++)
+                        alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+                    
                     alloc_.deallocate(objects_, capacity_);
                     
                     objects_ = new_memory;
@@ -300,7 +304,7 @@ class Vector
                 T t;
                 for (size_t i = size_; i < new_size; i++)
                 {
-                    alloc_.construct (objects_ + i, t);
+                    alloc_.construct (objects_ + i, static_cast<T>(t));
                 }
                 size_ = new_size;
             }
@@ -319,7 +323,10 @@ class Vector
         {
             
             auto new_memory = alloc_.allocate(capacity_ + add_size);
-            memcpy(new_memory, objects_, sizeof(T) * size_);
+            
+            for (size_t i = 0; i < size_; i++)
+                alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+
             alloc_.deallocate(objects_, capacity_);
             
             objects_ = new_memory;
