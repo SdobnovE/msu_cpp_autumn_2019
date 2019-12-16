@@ -5,6 +5,7 @@
 #include <future>
 #include <functional>
 #include <mutex>
+#include <atomic>
 #include <condition_variable>
 
 
@@ -22,12 +23,12 @@ public:
     
 private:
     
-    bool exit;
+    std::atomic<bool> exit;
     std::queue<std::function<void()>> _que_task;
     std::vector<std::thread> _threads;
     std::mutex _mut;
     std::condition_variable _cond;
-    friend void thread_func(ThreadPool* This);
+    void thread_func();
     
 };
 
@@ -64,24 +65,24 @@ auto ThreadPool::exec(Func&& func, Args&&... args)->std::future<decltype(func(ar
 
 
 
-void thread_func(ThreadPool* This)
+void ThreadPool::thread_func()
 {
     std::function<void()> task;
 
     while (true)
     {   
         {
-            std::unique_lock<std::mutex> lock(This->_mut);
+            std::unique_lock<std::mutex> lock(this->_mut);
             
-            This->_cond.wait(lock, 
-                [This](){ return (This->_que_task.size() > 0) || This->exit;}
+            this->_cond.wait(lock, 
+                [this](){ return (this->_que_task.size() > 0) || this->exit;}
                 );
             
             
-            if (This->_que_task.size() > 0)
+            if (this->_que_task.size() > 0)
             {
-                task = This->_que_task.front();
-                This->_que_task.pop();
+                task = this->_que_task.front();
+                this->_que_task.pop();
             }
             else
             {
@@ -97,8 +98,9 @@ void thread_func(ThreadPool* This)
 
 ThreadPool::ThreadPool(size_t poolSize) : exit(false)
 {
+    
     for (size_t i = 0; i < poolSize; i++)
-        _threads.push_back(std::thread(thread_func, this));
+        _threads.emplace_back([this] { this->thread_func();});
     // for (auto& i : _threads)
     //     i.join();
 }
@@ -106,10 +108,9 @@ ThreadPool::ThreadPool(size_t poolSize) : exit(false)
 
 ThreadPool::~ThreadPool()
 {
-    {
-        std::unique_lock<std::mutex> lock(_mut);
-        exit = true;
-    }
+    
+    exit = true;
+    
 
     _cond.notify_all();
 
