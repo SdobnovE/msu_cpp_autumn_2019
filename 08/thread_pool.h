@@ -86,8 +86,7 @@ void ThreadPool::thread_func()
             }
             else
             {
-                if (this->exit)
-                    break;
+                break;
             }
         }
         task();
