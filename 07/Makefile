@@ -1,5 +1,5 @@
 CC=g++
-Keys=-O3
+Keys=-O3 -std=c++14
 all: my_prog test
 
 my_prog: main.o

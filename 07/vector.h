@@ -39,7 +39,7 @@ class Allocator
         void construct (T* p,  T&& obj)
         {
             
-            new (p) T(std::forward<T>(obj));
+            new (p) T(std::move(obj));
         }
 
 
@@ -215,12 +215,13 @@ class Vector
 
         void push_back(const T& obj)
         {
+            
             if (capacity_ == size_)
             {    
                 auto new_memory = alloc_.allocate(size_ * 2);
                 
                 for (size_t i = 0; i < size_; i++)
-                    alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));  
+                    alloc_.construct(new_memory + i, std::move(objects_[i]));//1  
 
                 alloc_.deallocate(objects_, size_);
                 
@@ -230,20 +231,19 @@ class Vector
 
             }
 
-            alloc_.construct(objects_ + size_, static_cast<T>(obj));
+            alloc_.construct(objects_ + size_, obj);//2
             
             size_++;
         }
 
         void push_back(T&& obj)
         {
-            
             if (capacity_ == size_)
-            {    
+            {   
                 auto new_memory = alloc_.allocate(size_ * 2);
                 
                 for (size_t i = 0; i < size_; i++)
-                    alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+                    alloc_.construct(new_memory + i, std::move(objects_[i]));//1
 
                 alloc_.deallocate(objects_, size_);
                 
@@ -253,7 +253,7 @@ class Vector
 
             }
             
-            alloc_.construct(objects_ + size_, std::forward<T>(obj)); 
+            alloc_.construct(objects_ + size_, std::move(obj)); //2
             size_++;
         }
 
@@ -293,7 +293,7 @@ class Vector
                     auto new_memory = alloc_.allocate(new_size * 2);
                     
                     for (size_t i = 0; i < size_; i++)
-                        alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+                        alloc_.construct(new_memory + i, std::move(objects_[i]));
                     
                     alloc_.deallocate(objects_, capacity_);
                     
@@ -304,7 +304,7 @@ class Vector
                 T t;
                 for (size_t i = size_; i < new_size; i++)
                 {
-                    alloc_.construct (objects_ + i, static_cast<T>(t));
+                    alloc_.construct (objects_ + i, std::move(t));
                 }
                 size_ = new_size;
             }
@@ -325,7 +325,7 @@ class Vector
             auto new_memory = alloc_.allocate(capacity_ + add_size);
             
             for (size_t i = 0; i < size_; i++)
-                alloc_.construct(new_memory + i, static_cast<T>(objects_[i]));
+                alloc_.construct(new_memory + i, std::move(objects_[i]));
 
             alloc_.deallocate(objects_, capacity_);
             

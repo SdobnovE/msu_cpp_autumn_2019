@@ -12,6 +12,7 @@ class My
         My(size_t size): _size(size), _ar(new double[size])
         {
             
+
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = 0;
 
@@ -19,7 +20,10 @@ class My
         
         My():_size(10), _ar(new double[10])
         {
-            
+            // static size_t cnt = 0;
+            // cout << cnt << endl;
+            // cnt++;
+
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = 0;
         }
@@ -27,8 +31,15 @@ class My
 
         ~My()
         {
+            static size_t cnt = 0;
+            cnt++;
+            cout << cnt << endl;
+            
             if (_ar != nullptr)
+            {
+                cout << cnt << endl;
                 delete[] _ar;
+            }
         }
 
         My& operator=(const My& obj)
@@ -53,6 +64,14 @@ class My
             for (size_t i = 0; i < _size; i++)
                 _ar[i] = obj._ar[i];
         }
+
+        My( My&& obj)
+        {
+            //cout << "AAA\n";
+            _size = obj._size;
+            _ar = obj._ar;
+            obj._ar = nullptr;
+        }
         
         My ret()
         {
@@ -74,53 +93,55 @@ ostream& operator<<(ostream& out, My&& obj)
 
 int main()
 {
+    // My* a3 = new My[10];
+    // delete[] a3;
     vector<My> aa;
-    My a3(23);
+    My a3(10);
     My a2(a3);
     a2 = a3;
     Vector<My> a(2);
     
-    cout<< a2.ret() << endl;
-    a.push_back(a2.ret());
     
-    a.push_back(a2);
+    a.push_back(a2.ret());
+    cout << "HAHA\n";
+    
 
-    a.push_back(a2);
-    a.push_back(a2);
+    // a.push_back(a2);
+    // a.push_back(a2);
     
-    a.push_back(a2);
-    a.push_back(a2.ret());
-    a.push_back(a2);
-    a.pop_back();
-    a.pop_back();
-    a.pop_back();
-    a.push_back(a2);
+    // a.push_back(a2);
+    // a.push_back(a2.ret());
+    // a.push_back(a2);
+    // a.pop_back();
+    // a.pop_back();
+    // a.pop_back();
+    // a.push_back(a2);
     
-    a.push_back(a2);
-    a.push_back(a2.ret());
-    a.push_back(a2);
-    a.clear();
-    a.push_back(a2);
+    // a.push_back(a2);
+    // a.push_back(a2.ret());
+    // a.push_back(a2);
+    // a.clear();
+    // a.push_back(a2);
     
-    a.push_back(a2);
-    a.push_back(a2.ret());
-    a.push_back(a2);
-    cout << a.size() << endl;
+    // a.push_back(a2);
+    // a.push_back(a2.ret());
+    // a.push_back(a2);
+    // cout << a.size() << endl;
     
-    a.resize(1020);
-    cout << a.capacity() << endl;
-    a.push_back(a2);
-    a.resize(1);
-    cout << a.capacity() << endl;
+    // a.resize(1020);
+    // cout << a.capacity() << endl;
+    // a.push_back(a2);
+    // a.resize(1);
+    // cout << a.capacity() << endl;
     
-    a.resize(16);
-    auto it = a.begin();
-    it++;
-    cout << a.capacity() << endl;
-    for (auto i = a.begin(); i != a.end(); i++)
-    {
-        cout << *i << endl;
-    }
+    // a.resize(16);
+    // auto it = a.begin();
+    // it++;
+    // cout << a.capacity() << endl;
+    // for (auto i = a.begin(); i != a.end(); i++)
+    // {
+    //     cout << *i << endl;
+    // }
     
     return 0;
 }
