@@ -21,7 +21,7 @@ void barrier_wait(size_t total_threads)
     static std::condition_variable condvar_out;
     static size_t threads_in = 0;
     static size_t threads_out = 0;
-    std::unique_lock<std::mutex> lock(mut);
+    std::unique_lock<std::mutex> lock(mut);////////////////
     threads_in++;
     
     if (threads_in >= total_threads)
@@ -123,7 +123,8 @@ void thread_func(data Dat)
     while (true)
     {
         
-        
+        barrier_wait(2);
+
         uint64_t val = 0;
         if (Dat.id == 0)
         {
@@ -198,9 +199,11 @@ void thread_func(data Dat)
         }
 
     }
-    string file1, file2, out;
+    
+
     barrier_wait(2);//Нужен барьер, чтобы не начать вдруг сливать последний файл
     
+    string file1, file2, out;
     while (true)
     {
         {
