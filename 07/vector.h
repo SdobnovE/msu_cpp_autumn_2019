@@ -230,8 +230,8 @@ class Vector
                 capacity_ *= 2;
 
             }
-
-            alloc_.construct(objects_ + size_, obj);//2
+            
+            alloc_.construct(objects_ + size_, static_cast<T>(obj));//2
             
             size_++;
         }
@@ -321,7 +321,6 @@ class Vector
         
         void reserve(size_t add_size)
         {
-            
             auto new_memory = alloc_.allocate(capacity_ + add_size);
             
             for (size_t i = 0; i < size_; i++)

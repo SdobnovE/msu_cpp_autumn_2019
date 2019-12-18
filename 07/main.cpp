@@ -32,8 +32,8 @@ class My
         ~My()
         {
             static size_t cnt = 0;
-            cnt++;
-            cout << cnt << endl;
+            // cnt++;
+            // cout << cnt << endl;
             
             if (_ar != nullptr)
             {
@@ -93,8 +93,6 @@ ostream& operator<<(ostream& out, My&& obj)
 
 int main()
 {
-    // My* a3 = new My[10];
-    // delete[] a3;
     vector<My> aa;
     My a3(10);
     My a2(a3);
@@ -102,46 +100,51 @@ int main()
     Vector<My> a(2);
     
     
-    a.push_back(a2.ret());
+    a.push_back(a2);
     cout << "HAHA\n";
-    
+    cout << a2 << endl;
 
-    // a.push_back(a2);
-    // a.push_back(a2);
+    a.push_back(a2);
+    a.push_back(a2);
     
-    // a.push_back(a2);
-    // a.push_back(a2.ret());
-    // a.push_back(a2);
-    // a.pop_back();
-    // a.pop_back();
-    // a.pop_back();
-    // a.push_back(a2);
+    a.push_back(a2);
+    a.push_back(a2.ret());
+    a.push_back(a2);
+    a.pop_back();
+    a.pop_back();
+    a.pop_back();
+    a.push_back(a2);
     
-    // a.push_back(a2);
-    // a.push_back(a2.ret());
-    // a.push_back(a2);
-    // a.clear();
-    // a.push_back(a2);
+    a.push_back(a2);
+    a.push_back(a2.ret());
+    a.push_back(a2);
+    a.clear();
+    a.push_back(a2);
     
-    // a.push_back(a2);
-    // a.push_back(a2.ret());
-    // a.push_back(a2);
-    // cout << a.size() << endl;
+    a.push_back(a2);
+    a.push_back(a2.ret());
+    a.push_back(a2);
+    cout << a.size() << endl;
     
-    // a.resize(1020);
-    // cout << a.capacity() << endl;
-    // a.push_back(a2);
-    // a.resize(1);
-    // cout << a.capacity() << endl;
+    a.resize(1020);
+    cout << a.capacity() << endl;
+    a.push_back(a2);
+    a.resize(1);
+    cout << a.capacity() << endl;
     
-    // a.resize(16);
-    // auto it = a.begin();
-    // it++;
-    // cout << a.capacity() << endl;
-    // for (auto i = a.begin(); i != a.end(); i++)
-    // {
-    //     cout << *i << endl;
-    // }
+    //a.resize(16);
+    auto it = a.begin();
+    it++;
+    cout << a.capacity() << endl;
+
+    int cnt = 0;
+    cout << a.size() << " Size\n";
+    for (auto i = a.begin(); i != a.end(); i++)
+    {
+        cout << *i << endl;
+        cout << "CNT " << cnt << endl;
+        cnt++;
+    }
     
     return 0;
 }
