@@ -315,9 +315,9 @@ class Vector
                     
                 size_ = new_size;
             }
-            
-            
+                
         }
+        
         
         void reserve(size_t add_size)
         {
